@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste de Personalidade — Barbara Benedykt, Psicanalista Clínica</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--linho:#EFEDE3;--papel:#F8F7F1;--verde:#3E5240;--verde-claro:#7E9070;--sage:#DDE2D2;
+--tinta:#232A22;--tinta-suave:#5A6357;--latao:#9C7C3C;--borda:#D6D6C7}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--linho);color:var(--tinta);font-family:'Karla',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:17px;line-height:1.55;padding-bottom:4rem}
+.wrap{max-width:640px;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.15}
+.oculto{display:none}
+.marca{text-align:center;padding:2.5rem 0 1.2rem}
+.marca svg{display:block;margin:0 auto .9rem}
+.marca .nome{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;letter-spacing:.28em;color:var(--verde);text-indent:.28em}
+.marca .funcao{font-size:.72rem;letter-spacing:.22em;color:var(--tinta-suave);text-indent:.22em;margin-top:.35rem}
+.marca .lema{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.02rem;color:var(--tinta-suave);margin-top:.9rem}
+h1{font-size:2.5rem;text-align:center;margin:1.4rem 0 .4rem;color:var(--verde)}
+.sub{text-align:center;font-size:.95rem;color:var(--tinta-suave);margin-bottom:1.8rem}
+.cartao{background:var(--papel);border:1px solid var(--borda);padding:1.4rem 1.3rem;margin-bottom:1rem}
+.cartao h2{font-size:1.55rem;color:var(--verde);margin-bottom:.55rem}
+.cartao p+p{margin-top:.7rem}
+.cartao ul{margin:.6rem 0 0 1.1rem}
+.cartao li{margin-bottom:.35rem}
+.aviso{background:var(--sage);border:none;font-size:.86rem;color:#3B4536}
+.campos{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+.campo{flex:1 1 160px}
+.campo label{display:block;font-size:.8rem;color:var(--tinta-suave);margin-bottom:.3rem}
+.campo input{width:100%;padding:.65rem .7rem;font:inherit;background:#fff;border:1px solid var(--borda);color:var(--tinta);border-radius:0}
+.campo input:focus{outline:2px solid var(--verde-claro);outline-offset:1px}
+.btn{display:block;width:100%;padding:.95rem 1.2rem;font:inherit;font-weight:600;background:var(--verde);color:var(--papel);border:1px solid var(--verde);cursor:pointer;border-radius:0;-webkit-appearance:none;text-align:center}
+.btn:hover{background:#334533}
+.btn.secundario{background:transparent;color:var(--verde)}
+.btn.secundario:hover{background:var(--sage)}
+.botoes{display:flex;flex-direction:column;gap:.6rem;margin-top:1.4rem}
+.progresso{position:sticky;top:0;z-index:10;background:var(--linho);padding:.7rem 0 .55rem;border-bottom:1px solid var(--borda);margin-top:2rem}
+.progresso .linha{display:flex;justify-content:space-between;align-items:baseline;font-size:.8rem;color:var(--tinta-suave);margin-bottom:.4rem}
+.progresso .bloco{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.15rem;color:var(--verde)}
+.trilho{height:3px;background:var(--borda)}
+.preenche{height:3px;width:0;background:var(--latao)}
+.secao-titulo{font-size:1.5rem;color:var(--verde);margin:2.2rem 0 .2rem;padding-top:.4rem;border-top:1px solid var(--borda)}
+.secao-titulo span{display:block;font-family:'Karla',sans-serif;font-size:.78rem;color:var(--tinta-suave);margin-top:.25rem}
+.q{background:var(--papel);border:1px solid var(--borda);padding:1.1rem;margin-top:1rem}
+.q.faltando{border-color:#B0553F;box-shadow:inset 3px 0 0 #B0553F}
+.q .num{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;color:var(--latao);margin-right:.4rem}
+.enunciado{font-weight:500;margin-bottom:.85rem;float:none;display:block;width:100%}
+.opcao{display:flex;align-items:flex-start;gap:.65rem;width:100%;background:#fff;border:1px solid var(--borda);color:var(--tinta);padding:.75rem .85rem;cursor:pointer;margin-top:.5rem;line-height:1.4}
+.opcao input{flex:0 0 auto;width:1.15rem;height:1.15rem;margin:.15rem 0 0;accent-color:var(--verde)}
+.opcao .letra-op{flex:0 0 auto;font-weight:600;color:var(--verde-claro)}
+.opcao:hover{border-color:var(--verde-claro)}
+.opcao:focus-within{outline:2px solid var(--verde-claro);outline-offset:1px}
+.opcao.escolhida{background:var(--verde);border-color:var(--verde);color:var(--papel)}
+.opcao.escolhida .letra-op{color:var(--sage)}
+.desempate{background:var(--papel);border:1px solid var(--latao);padding:1.3rem 1.2rem;margin-bottom:1rem}
+.desempate h3{font-size:1.35rem;color:var(--verde);margin-bottom:.3rem}
+.desempate .aviso-emp{font-size:.88rem;color:var(--tinta-suave);margin-bottom:.7rem}
+.tipo{text-align:center;padding:2rem 1rem 1.6rem;background:var(--papel);border:1px solid var(--borda)}
+.letras{display:flex;justify-content:center;gap:.5rem}
+.letra{font-family:'Cormorant Garamond',Georgia,serif;font-size:3.4rem;line-height:1;color:var(--verde);width:3.3rem;padding-bottom:.35rem;border-bottom:2px solid var(--latao)}
+.letra small{display:block;font-family:'Karla',sans-serif;font-size:.6rem;color:var(--tinta-suave);margin-top:.5rem}
+.apelido{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;color:var(--tinta);margin-top:1.3rem}
+.resumo{max-width:34rem;margin:.5rem auto 0;color:var(--tinta-suave)}
+.eixo{margin-top:1.35rem}
+.eixo .polos{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.35rem}
+.eixo .polos .fraco{color:var(--tinta-suave)}
+.eixo .barra{position:relative;height:6px;background:var(--sage)}
+.eixo .marcador{position:absolute;top:-4px;width:2px;height:14px;background:var(--latao)}
+.eixo .placar{font-size:.78rem;color:var(--tinta-suave);margin-top:.3rem;text-align:center}
+.lista-t{margin-top:1.5rem}
+.lista-t h3{font-size:1.3rem;color:var(--verde);margin-bottom:.35rem}
+.lista-t ul{margin-left:1.1rem}
+.lista-t li{margin-bottom:.3rem}
+.sem-js{background:#FBEEE6;border:1px solid #B0553F;padding:1rem;margin-top:1rem;font-size:.9rem}
+.folha{margin-top:1.2rem;border-collapse:collapse;width:100%;font-size:.9rem}
+.folha th,.folha td{border:1px solid var(--borda);padding:.45rem .5rem;text-align:left}
+@media print{
+  body{background:#fff;font-size:12pt}
+  .progresso,.botoes,#introducao,#form-teste,#desempates{display:none}
+  .cartao,.tipo{border-color:#999;background:#fff}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="aviso-js" class="sem-js">
+    <b>Apuração automática indisponível neste visualizador.</b><br>
+    Você pode responder tudo aqui e usar a folha de apuração no fim da página. Para receber o resultado na tela, abra este endereço no Chrome, Safari, Firefox ou Edge.
+  </div>
+
+  <header class="marca">
+    <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
+      <path d="M26 46 C26 30, 26 22, 26 12" stroke="#3E5240" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M26 20 C18 20, 13 16, 12 10 C20 10, 25 13, 26 20 Z" fill="#7E9070"/>
+      <path d="M26 20 C34 20, 39 16, 40 10 C32 10, 27 13, 26 20 Z" fill="#3E5240"/>
+      <path d="M26 32 C19 32, 15 28, 14 23 C21 23, 25 26, 26 32 Z" fill="#7E9070" opacity=".8"/>
+      <path d="M26 32 C33 32, 37 28, 38 23 C31 23, 27 26, 26 32 Z" fill="#3E5240" opacity=".8"/>
+    </svg>
+    <div class="nome">BARBARA BENEDYKT</div>
+    <div class="funcao">PSICANALISTA CLÍNICA</div>
+    <div class="lema">A cura começa quando alguém nos escuta com o coração</div>
+  </header>
+
+  <section id="introducao">
+    <h1>Teste de Personalidade</h1>
+    <p class="sub">Questionário autoral inspirado nas dimensões do MBTI®</p>
+    <div class="cartao">
+      <h2>Sobre o questionário</h2>
+      <p>São 40 afirmações sobre como você costuma direcionar sua energia, perceber informações, tomar decisões e organizar a vida cotidiana. O resultado indica uma tendência de preferência, e não uma definição rígida da personalidade.</p>
+      <p>Leva cerca de 8 minutos. Role a página, responda todas e o resultado aparece no fim.</p>
+    </div>
+    <div class="cartao">
+      <h2>Como responder</h2>
+      <ul>
+        <li>Leia cada par de afirmações e escolha a que mais se aproxima de você.</li>
+        <li>Marque apenas uma opção por questão.</li>
+        <li>Responda pensando em como você costuma ser na maior parte do tempo, e não em como gostaria de ser.</li>
+        <li>Não há respostas certas ou erradas. Evite escolher pensando no que seria socialmente mais desejável.</li>
+      </ul>
+    </div>
+    <div class="cartao">
+      <h2>Seus dados</h2>
+      <p style="font-size:.9rem;color:#5A6357">Aparecem apenas no seu resultado, para imprimir ou enviar. Nada é salvo neste site.</p>
+      <div class="campos">
+        <div class="campo"><label for="f-nome">Nome</label><input id="f-nome" type="text" autocomplete="name"></div>
+        <div class="campo" style="flex:0 1 110px"><label for="f-idade">Idade</label><input id="f-idade" type="number" min="1" max="120" inputmode="numeric"></div>
+      </div>
+    </div>
+    <div class="cartao aviso">
+      Instrumento autoral inspirado no modelo das quatro dimensões do MBTI. Não é o instrumento oficial MBTI®, não substitui avaliação psicológica ou clínica e não deve ser utilizado isoladamente para diagnóstico.
+    </div>
+    <noscript>
+      <div class="sem-js" style="display:block">
+        Este visualizador não executa a apuração automática. Você ainda pode responder tudo aqui e usar a folha de apuração no fim da página, ou abrir o arquivo no Chrome, Safari, Firefox ou Edge para receber o resultado na tela.
+      </div>
+    </noscript>
+  </section>
+
+  <div class="progresso" id="progresso">
+    <div class="linha">
+      <span class="bloco" id="bloco-atual">Energia</span>
+      <span id="contador">0 de 40 respondidas</span>
+    </div>
+    <div class="trilho"><div class="preenche" id="preenche"></div></div>
+  </div>
+
+  <form id="form-teste" onsubmit="return false">
+
+<h2 class="secao-titulo">Energia<span>Questões 1 a 10</span></h2>
+<fieldset class="q" id="q0">
+  <legend class="enunciado"><span class="num">1.</span>Quando estou em um grupo novo, geralmente:</legend>
+  <label class="opcao"><input type="radio" name="q0" value="A"><span class="letra-op">A</span><span>começo a conversar e me envolvo rapidamente.</span></label>
+  <label class="opcao"><input type="radio" name="q0" value="B"><span class="letra-op">B</span><span>observo primeiro e vou me aproximando aos poucos.</span></label>
+</fieldset>
+<fieldset class="q" id="q1">
+  <legend class="enunciado"><span class="num">2.</span>Depois de um dia muito intenso, costumo recuperar minha energia:</legend>
+  <label class="opcao"><input type="radio" name="q1" value="A"><span class="letra-op">A</span><span>conversando ou estando com outras pessoas.</span></label>
+  <label class="opcao"><input type="radio" name="q1" value="B"><span class="letra-op">B</span><span>ficando mais quieto(a) e tendo um tempo só para mim.</span></label>
+</fieldset>
+<fieldset class="q" id="q2">
+  <legend class="enunciado"><span class="num">3.</span>Quando tenho uma ideia interessante, prefiro:</legend>
+  <label class="opcao"><input type="radio" name="q2" value="A"><span class="letra-op">A</span><span>falar sobre ela e desenvolvê-la em diálogo.</span></label>
+  <label class="opcao"><input type="radio" name="q2" value="B"><span class="letra-op">B</span><span>pensar nela internamente antes de compartilhar.</span></label>
+</fieldset>
+<fieldset class="q" id="q3">
+  <legend class="enunciado"><span class="num">4.</span>Em encontros sociais, normalmente:</legend>
+  <label class="opcao"><input type="radio" name="q3" value="A"><span class="letra-op">A</span><span>gosto de circular, conhecer pessoas e participar.</span></label>
+  <label class="opcao"><input type="radio" name="q3" value="B"><span class="letra-op">B</span><span>prefiro interações mais profundas com poucas pessoas.</span></label>
+</fieldset>
+<fieldset class="q" id="q4">
+  <legend class="enunciado"><span class="num">5.</span>Quando preciso resolver algo, frequentemente:</legend>
+  <label class="opcao"><input type="radio" name="q4" value="A"><span class="letra-op">A</span><span>converso com alguém para organizar minhas ideias.</span></label>
+  <label class="opcao"><input type="radio" name="q4" value="B"><span class="letra-op">B</span><span>organizo minhas ideias sozinho(a) primeiro.</span></label>
+</fieldset>
+<fieldset class="q" id="q5">
+  <legend class="enunciado"><span class="num">6.</span>Meu ambiente ideal costuma ter:</legend>
+  <label class="opcao"><input type="radio" name="q5" value="A"><span class="letra-op">A</span><span>movimento, troca e estímulos externos.</span></label>
+  <label class="opcao"><input type="radio" name="q5" value="B"><span class="letra-op">B</span><span>tranquilidade, espaço pessoal e poucos estímulos.</span></label>
+</fieldset>
+<fieldset class="q" id="q6">
+  <legend class="enunciado"><span class="num">7.</span>Em uma conversa, sou mais propenso(a) a:</legend>
+  <label class="opcao"><input type="radio" name="q6" value="A"><span class="letra-op">A</span><span>pensar enquanto falo.</span></label>
+  <label class="opcao"><input type="radio" name="q6" value="B"><span class="letra-op">B</span><span>pensar antes de falar.</span></label>
+</fieldset>
+<fieldset class="q" id="q7">
+  <legend class="enunciado"><span class="num">8.</span>Quando recebo um convite inesperado:</legend>
+  <label class="opcao"><input type="radio" name="q7" value="A"><span class="letra-op">A</span><span>sinto curiosidade e vontade de participar.</span></label>
+  <label class="opcao"><input type="radio" name="q7" value="B"><span class="letra-op">B</span><span>primeiro penso se realmente quero ou preciso ir.</span></label>
+</fieldset>
+<fieldset class="q" id="q8">
+  <legend class="enunciado"><span class="num">9.</span>Quando estou diante de um problema:</legend>
+  <label class="opcao"><input type="radio" name="q8" value="A"><span class="letra-op">A</span><span>procuro trocar ideias com outras pessoas.</span></label>
+  <label class="opcao"><input type="radio" name="q8" value="B"><span class="letra-op">B</span><span>prefiro refletir sozinho(a) antes de pedir opiniões.</span></label>
+</fieldset>
+<fieldset class="q" id="q9">
+  <legend class="enunciado"><span class="num">10.</span>Em geral, sinto-me mais confortável:</legend>
+  <label class="opcao"><input type="radio" name="q9" value="A"><span class="letra-op">A</span><span>em ambientes com interação e atividade.</span></label>
+  <label class="opcao"><input type="radio" name="q9" value="B"><span class="letra-op">B</span><span>em ambientes mais reservados e previsíveis.</span></label>
+</fieldset>
+
+<h2 class="secao-titulo">Percepção<span>Questões 11 a 20</span></h2>
+<fieldset class="q" id="q10">
+  <legend class="enunciado"><span class="num">11.</span>Quando aprendo algo novo, prefiro:</legend>
+  <label class="opcao"><input type="radio" name="q10" value="A"><span class="letra-op">A</span><span>exemplos concretos e aplicações práticas.</span></label>
+  <label class="opcao"><input type="radio" name="q10" value="B"><span class="letra-op">B</span><span>conceitos, possibilidades e ideias gerais.</span></label>
+</fieldset>
+<fieldset class="q" id="q11">
+  <legend class="enunciado"><span class="num">12.</span>Ao receber uma instrução, valorizo mais:</legend>
+  <label class="opcao"><input type="radio" name="q11" value="A"><span class="letra-op">A</span><span>detalhes claros sobre o que deve ser feito.</span></label>
+  <label class="opcao"><input type="radio" name="q11" value="B"><span class="letra-op">B</span><span>entender a ideia e ter liberdade para chegar ao resultado.</span></label>
+</fieldset>
+<fieldset class="q" id="q12">
+  <legend class="enunciado"><span class="num">13.</span>Quando observo uma situação, noto primeiro:</legend>
+  <label class="opcao"><input type="radio" name="q12" value="A"><span class="letra-op">A</span><span>fatos, detalhes e o que está acontecendo agora.</span></label>
+  <label class="opcao"><input type="radio" name="q12" value="B"><span class="letra-op">B</span><span>padrões, significados e o que pode acontecer depois.</span></label>
+</fieldset>
+<fieldset class="q" id="q13">
+  <legend class="enunciado"><span class="num">14.</span>Ao contar uma história, costumo:</legend>
+  <label class="opcao"><input type="radio" name="q13" value="A"><span class="letra-op">A</span><span>lembrar de fatos e acontecimentos específicos.</span></label>
+  <label class="opcao"><input type="radio" name="q13" value="B"><span class="letra-op">B</span><span>destacar a mensagem ou o sentido da experiência.</span></label>
+</fieldset>
+<fieldset class="q" id="q14">
+  <legend class="enunciado"><span class="num">15.</span>Em um projeto, geralmente começo pensando:</legend>
+  <label class="opcao"><input type="radio" name="q14" value="A"><span class="letra-op">A</span><span>nos recursos, etapas e condições reais.</span></label>
+  <label class="opcao"><input type="radio" name="q14" value="B"><span class="letra-op">B</span><span>nas possibilidades e no que poderia ser criado.</span></label>
+</fieldset>
+<fieldset class="q" id="q15">
+  <legend class="enunciado"><span class="num">16.</span>Quando alguém apresenta uma ideia muito diferente:</legend>
+  <label class="opcao"><input type="radio" name="q15" value="A"><span class="letra-op">A</span><span>penso primeiro se ela é viável na prática.</span></label>
+  <label class="opcao"><input type="radio" name="q15" value="B"><span class="letra-op">B</span><span>fico interessado(a) em explorar onde ela pode levar.</span></label>
+</fieldset>
+<fieldset class="q" id="q16">
+  <legend class="enunciado"><span class="num">17.</span>Minha memória tende a guardar melhor:</legend>
+  <label class="opcao"><input type="radio" name="q16" value="A"><span class="letra-op">A</span><span>acontecimentos concretos e detalhes.</span></label>
+  <label class="opcao"><input type="radio" name="q16" value="B"><span class="letra-op">B</span><span>impressões, conexões e significados.</span></label>
+</fieldset>
+<fieldset class="q" id="q17">
+  <legend class="enunciado"><span class="num">18.</span>Prefiro tarefas que:</legend>
+  <label class="opcao"><input type="radio" name="q17" value="A"><span class="letra-op">A</span><span>tenham instruções e resultados mais definidos.</span></label>
+  <label class="opcao"><input type="radio" name="q17" value="B"><span class="letra-op">B</span><span>permitam experimentar e descobrir novas formas.</span></label>
+</fieldset>
+<fieldset class="q" id="q18">
+  <legend class="enunciado"><span class="num">19.</span>Quando penso no futuro, costumo:</legend>
+  <label class="opcao"><input type="radio" name="q18" value="A"><span class="letra-op">A</span><span>partir das experiências e condições atuais.</span></label>
+  <label class="opcao"><input type="radio" name="q18" value="B"><span class="letra-op">B</span><span>imaginar cenários e possibilidades diferentes.</span></label>
+</fieldset>
+<fieldset class="q" id="q19">
+  <legend class="enunciado"><span class="num">20.</span>Diante de um assunto complexo, gosto de:</legend>
+  <label class="opcao"><input type="radio" name="q19" value="A"><span class="letra-op">A</span><span>dividir em partes concretas e verificáveis.</span></label>
+  <label class="opcao"><input type="radio" name="q19" value="B"><span class="letra-op">B</span><span>entender como as partes se conectam ao todo.</span></label>
+</fieldset>
+
+<h2 class="secao-titulo">Decisão<span>Questões 21 a 30</span></h2>
+<fieldset class="q" id="q20">
+  <legend class="enunciado"><span class="num">21.</span>Ao tomar uma decisão importante, tendo a priorizar:</legend>
+  <label class="opcao"><input type="radio" name="q20" value="A"><span class="letra-op">A</span><span>lógica, critérios e consequências.</span></label>
+  <label class="opcao"><input type="radio" name="q20" value="B"><span class="letra-op">B</span><span>valores pessoais e impacto sobre as pessoas.</span></label>
+</fieldset>
+<fieldset class="q" id="q21">
+  <legend class="enunciado"><span class="num">22.</span>Quando alguém me pede uma opinião sincera, costumo:</legend>
+  <label class="opcao"><input type="radio" name="q21" value="A"><span class="letra-op">A</span><span>apontar objetivamente o que pode ser melhorado.</span></label>
+  <label class="opcao"><input type="radio" name="q21" value="B"><span class="letra-op">B</span><span>considerar primeiro como minha fala será recebida.</span></label>
+</fieldset>
+<fieldset class="q" id="q22">
+  <legend class="enunciado"><span class="num">23.</span>Em um conflito, considero mais importante:</legend>
+  <label class="opcao"><input type="radio" name="q22" value="A"><span class="letra-op">A</span><span>chegar a uma solução coerente e justa.</span></label>
+  <label class="opcao"><input type="radio" name="q22" value="B"><span class="letra-op">B</span><span>preservar o vínculo e o entendimento entre as pessoas.</span></label>
+</fieldset>
+<fieldset class="q" id="q23">
+  <legend class="enunciado"><span class="num">24.</span>Quando avalio uma proposta, pergunto primeiro:</legend>
+  <label class="opcao"><input type="radio" name="q23" value="A"><span class="letra-op">A</span><span>isso faz sentido e funciona?</span></label>
+  <label class="opcao"><input type="radio" name="q23" value="B"><span class="letra-op">B</span><span>isso está de acordo com as pessoas e seus valores?</span></label>
+</fieldset>
+<fieldset class="q" id="q24">
+  <legend class="enunciado"><span class="num">25.</span>Em uma discussão, sou mais influenciado(a) por:</legend>
+  <label class="opcao"><input type="radio" name="q24" value="A"><span class="letra-op">A</span><span>argumentos consistentes e evidências.</span></label>
+  <label class="opcao"><input type="radio" name="q24" value="B"><span class="letra-op">B</span><span>experiências humanas e sentimentos envolvidos.</span></label>
+</fieldset>
+<fieldset class="q" id="q25">
+  <legend class="enunciado"><span class="num">26.</span>Quando preciso dar um feedback difícil:</legend>
+  <label class="opcao"><input type="radio" name="q25" value="A"><span class="letra-op">A</span><span>prefiro ser direto(a) e claro(a).</span></label>
+  <label class="opcao"><input type="radio" name="q25" value="B"><span class="letra-op">B</span><span>prefiro ser cuidadoso(a) para não ferir desnecessariamente.</span></label>
+</fieldset>
+<fieldset class="q" id="q26">
+  <legend class="enunciado"><span class="num">27.</span>Ao escolher entre duas opções, costumo:</legend>
+  <label class="opcao"><input type="radio" name="q26" value="A"><span class="letra-op">A</span><span>comparar prós, contras e resultados.</span></label>
+  <label class="opcao"><input type="radio" name="q26" value="B"><span class="letra-op">B</span><span>perceber qual opção parece mais alinhada ao que considero importante.</span></label>
+</fieldset>
+<fieldset class="q" id="q27">
+  <legend class="enunciado"><span class="num">28.</span>Quando alguém comete um erro, penso primeiro:</legend>
+  <label class="opcao"><input type="radio" name="q27" value="A"><span class="letra-op">A</span><span>em compreender a causa e corrigir o problema.</span></label>
+  <label class="opcao"><input type="radio" name="q27" value="B"><span class="letra-op">B</span><span>em compreender o contexto e a pessoa envolvida.</span></label>
+</fieldset>
+<fieldset class="q" id="q28">
+  <legend class="enunciado"><span class="num">29.</span>Em decisões coletivas, valorizo especialmente:</legend>
+  <label class="opcao"><input type="radio" name="q28" value="A"><span class="letra-op">A</span><span>critérios objetivos e consistência.</span></label>
+  <label class="opcao"><input type="radio" name="q28" value="B"><span class="letra-op">B</span><span>consenso, respeito e necessidades individuais.</span></label>
+</fieldset>
+<fieldset class="q" id="q29">
+  <legend class="enunciado"><span class="num">30.</span>Uma decisão bem tomada, para mim, é aquela que:</legend>
+  <label class="opcao"><input type="radio" name="q29" value="A"><span class="letra-op">A</span><span>é racionalmente defensável.</span></label>
+  <label class="opcao"><input type="radio" name="q29" value="B"><span class="letra-op">B</span><span>faz sentido também no plano humano e dos valores.</span></label>
+</fieldset>
+
+<h2 class="secao-titulo">Organização<span>Questões 31 a 40</span></h2>
+<fieldset class="q" id="q30">
+  <legend class="enunciado"><span class="num">31.</span>No cotidiano, prefiro:</legend>
+  <label class="opcao"><input type="radio" name="q30" value="A"><span class="letra-op">A</span><span>planejar e saber o que esperar.</span></label>
+  <label class="opcao"><input type="radio" name="q30" value="B"><span class="letra-op">B</span><span>manter opções abertas e adaptar-me ao que surgir.</span></label>
+</fieldset>
+<fieldset class="q" id="q31">
+  <legend class="enunciado"><span class="num">32.</span>Quando tenho uma tarefa importante, normalmente:</legend>
+  <label class="opcao"><input type="radio" name="q31" value="A"><span class="letra-op">A</span><span>gosto de definir etapas e prazos.</span></label>
+  <label class="opcao"><input type="radio" name="q31" value="B"><span class="letra-op">B</span><span>começo e vou ajustando conforme avanço.</span></label>
+</fieldset>
+<fieldset class="q" id="q32">
+  <legend class="enunciado"><span class="num">33.</span>Quando um plano muda de última hora:</legend>
+  <label class="opcao"><input type="radio" name="q32" value="A"><span class="letra-op">A</span><span>posso ficar desconfortável e preciso me reorganizar.</span></label>
+  <label class="opcao"><input type="radio" name="q32" value="B"><span class="letra-op">B</span><span>geralmente consigo me adaptar sem grande dificuldade.</span></label>
+</fieldset>
+<fieldset class="q" id="q33">
+  <legend class="enunciado"><span class="num">34.</span>Prefiro que uma decisão seja:</legend>
+  <label class="opcao"><input type="radio" name="q33" value="A"><span class="letra-op">A</span><span>definida para que eu possa seguir adiante.</span></label>
+  <label class="opcao"><input type="radio" name="q33" value="B"><span class="letra-op">B</span><span>aberta enquanto houver novas informações.</span></label>
+</fieldset>
+<fieldset class="q" id="q34">
+  <legend class="enunciado"><span class="num">35.</span>Minha relação com listas e organização é:</legend>
+  <label class="opcao"><input type="radio" name="q34" value="A"><span class="letra-op">A</span><span>elas me ajudam a sentir controle e clareza.</span></label>
+  <label class="opcao"><input type="radio" name="q34" value="B"><span class="letra-op">B</span><span>uso quando necessário, mas gosto de flexibilidade.</span></label>
+</fieldset>
+<fieldset class="q" id="q35">
+  <legend class="enunciado"><span class="num">36.</span>Antes de uma viagem, costumo:</legend>
+  <label class="opcao"><input type="radio" name="q35" value="A"><span class="letra-op">A</span><span>organizar horários, reservas e detalhes com antecedência.</span></label>
+  <label class="opcao"><input type="radio" name="q35" value="B"><span class="letra-op">B</span><span>definir o essencial e deixar espaço para improvisos.</span></label>
+</fieldset>
+<fieldset class="q" id="q36">
+  <legend class="enunciado"><span class="num">37.</span>Quando termino uma tarefa:</legend>
+  <label class="opcao"><input type="radio" name="q36" value="A"><span class="letra-op">A</span><span>gosto de encerrá-la e passar para a próxima.</span></label>
+  <label class="opcao"><input type="radio" name="q36" value="B"><span class="letra-op">B</span><span>posso deixá-la em aberto se surgir algo mais interessante.</span></label>
+</fieldset>
+<fieldset class="q" id="q37">
+  <legend class="enunciado"><span class="num">38.</span>Em relação ao tempo, prefiro:</legend>
+  <label class="opcao"><input type="radio" name="q37" value="A"><span class="letra-op">A</span><span>antecipar compromissos e evitar correria.</span></label>
+  <label class="opcao"><input type="radio" name="q37" value="B"><span class="letra-op">B</span><span>trabalhar melhor com alguma pressão e proximidade do prazo.</span></label>
+</fieldset>
+<fieldset class="q" id="q38">
+  <legend class="enunciado"><span class="num">39.</span>Meu espaço de trabalho tende a ser:</legend>
+  <label class="opcao"><input type="radio" name="q38" value="A"><span class="letra-op">A</span><span>organizado para facilitar a execução.</span></label>
+  <label class="opcao"><input type="radio" name="q38" value="B"><span class="letra-op">B</span><span>mais flexível, mesmo que nem tudo fique no lugar.</span></label>
+</fieldset>
+<fieldset class="q" id="q39">
+  <legend class="enunciado"><span class="num">40.</span>Quando preciso escolher uma atividade para o fim de semana:</legend>
+  <label class="opcao"><input type="radio" name="q39" value="A"><span class="letra-op">A</span><span>gosto de ter uma programação definida.</span></label>
+  <label class="opcao"><input type="radio" name="q39" value="B"><span class="letra-op">B</span><span>prefiro decidir conforme o momento.</span></label>
+</fieldset>
+    <div class="botoes">
+      <button class="btn" type="button" id="btn-resultado">Ver meu resultado</button>
+      <p id="alerta" class="oculto" style="font-size:.9rem;color:#B0553F;text-align:center">Faltam respostas. Levamos você até a primeira em branco.</p>
+    </div>
+  </form>
+
+  <section id="desempates" class="oculto">
+    <h2 class="secao-titulo" style="border:none">Quase lá<span>Suas respostas ficaram equilibradas. Escolha o que combina mais com você.</span></h2>
+    <div id="lista-desempates"></div>
+    <div class="botoes"><button class="btn" type="button" id="btn-fechar-empate">Confirmar e ver resultado</button></div>
+  </section>
+
+  <section id="resultado" class="oculto">
+    <h1 style="font-size:2rem">Seu tipo indicativo</h1>
+    <p class="sub" id="identificacao"></p>
+    <div class="tipo">
+      <div class="letras" id="letras"></div>
+      <div class="apelido" id="apelido"></div>
+      <p class="resumo" id="resumo"></p>
+    </div>
+    <div class="cartao" style="margin-top:1rem">
+      <h2>Onde você se posicionou</h2>
+      <div id="eixos"></div>
+    </div>
+    <div class="cartao">
+      <div class="lista-t"><h3>Potencialidades</h3><ul id="potencialidades"></ul></div>
+      <div class="lista-t"><h3>Aspectos a desenvolver</h3><ul id="desenvolver"></ul></div>
+    </div>
+    <div class="cartao aviso">
+      A personalidade é dinâmica e contextual. Este resultado deve ser compreendido como uma hipótese de preferência, não como um rótulo. Não substitui avaliação psicológica ou clínica.
+    </div>
+    <div class="botoes">
+      <button class="btn" type="button" id="btn-imprimir">Imprimir ou salvar em PDF</button>
+      <button class="btn secundario" type="button" id="btn-copiar">Copiar resultado</button>
+      <button class="btn secundario" type="button" id="btn-refazer">Refazer o teste</button>
+    </div>
+  </section>
+
+  <noscript>
+    <div class="cartao" style="margin-top:2rem">
+      <h2>Folha de apuração manual</h2>
+      <p>Conte quantas vezes marcou A e B em cada bloco. A letra com mais respostas indica a preferência.</p>
+      <table class="folha">
+        <tr><th>Dimensão</th><th>Questões</th><th>A</th><th>B</th><th>Preferência</th></tr>
+        <tr><td>Energia</td><td>1 a 10</td><td></td><td></td><td>E ou I</td></tr>
+        <tr><td>Percepção</td><td>11 a 20</td><td></td><td></td><td>S ou N</td></tr>
+        <tr><td>Decisão</td><td>21 a 30</td><td></td><td></td><td>T ou F</td></tr>
+        <tr><td>Organização</td><td>31 a 40</td><td></td><td></td><td>J ou P</td></tr>
+      </table>
+    </div>
+  </noscript>
+
+</div>
+<script>
+(function(){
+"use strict";
+var DIMENSOES = [
+{nome:"Energia",ini:0,fim:10,a:"E",b:"I",rotuloA:"Extroversão",rotuloB:"Introversão",
+ descA:"Recupero energia na convivência, penso falando e gosto de movimento ao redor.",
+ descB:"Recupero energia no recolhimento, penso antes de falar e prefiro poucos estímulos."},
+{nome:"Percepção",ini:10,fim:20,a:"S",b:"N",rotuloA:"Sensação",rotuloB:"Intuição",
+ descA:"Noto fatos, detalhes e o que é concreto e verificável agora.",
+ descB:"Noto padrões, significados e possibilidades do que pode vir a ser."},
+{nome:"Decisão",ini:20,fim:30,a:"T",b:"F",rotuloA:"Pensamento",rotuloB:"Sentimento",
+ descA:"Decido por critérios lógicos, coerência e consequências.",
+ descB:"Decido por valores pessoais e pelo impacto sobre as pessoas."},
+{nome:"Organização",ini:30,fim:40,a:"J",b:"P",rotuloA:"Julgamento",rotuloB:"Percepção",
+ descA:"Prefiro planejar, definir etapas e encerrar o que começo.",
+ descB:"Prefiro manter opções abertas e me adaptar ao que surgir."}];
+
+var TIPOS = {
+ISTJ:{apelido:"Organizador(a)",resumo:"Responsável, consistente e orientado(a) por fatos e compromissos.",
+ pot:["Confiabilidade: o que você assume, você cumpre.","Atenção a detalhes e procedimentos que outros deixam passar.","Estabilidade em situações que exigem método."],
+ des:["Abrir espaço para mudanças de rota e ideias ainda pouco definidas.","Explicitar o que sente, não apenas o que conclui."]},
+ISFJ:{apelido:"Cuidador(a)",resumo:"Atencioso(a), leal e atento(a) às necessidades concretas das pessoas.",
+ pot:["Cuidado prático e presença constante com quem está por perto.","Memória fina para o que importa a cada pessoa.","Lealdade que sustenta vínculos longos."],
+ des:["Pedir ajuda e nomear as próprias necessidades.","Dizer não sem sentir que está falhando com alguém."]},
+INFJ:{apelido:"Conselheiro(a)",resumo:"Reflexivo(a), intuitivo(a) e orientado(a) por significado e valores.",
+ pot:["Leitura profunda de pessoas e situações.","Coerência entre o que acredita e o que faz.","Capacidade de dar sentido ao que os outros vivem."],
+ des:["Aceitar soluções boas o bastante, sem exigir a ideal.","Cuidar do próprio limite antes do esgotamento."]},
+INTJ:{apelido:"Estrategista",resumo:"Independente, analítico(a) e focado(a) em planejamento e possibilidades.",
+ pot:["Visão de longo prazo e leitura de cenários.","Autonomia para decidir sem depender de aprovação.","Clareza para separar o essencial do acessório."],
+ des:["Comunicar o raciocínio, não só a conclusão.","Considerar o tempo e o ritmo emocional dos outros."]},
+ISTP:{apelido:"Prático(a)",resumo:"Observador(a), adaptável e voltado(a) para soluções objetivas.",
+ pot:["Calma e eficiência diante de problemas concretos.","Aprendizado rápido pela experiência direta.","Flexibilidade sem perder objetividade."],
+ des:["Sustentar compromissos de longo prazo que exigem rotina.","Verbalizar o que se passa por dentro."]},
+ISFP:{apelido:"Sensível",resumo:"Reservado(a), flexível e atento(a) à experiência e aos valores pessoais.",
+ pot:["Presença cuidadosa e pouco invasiva.","Sensibilidade estética e atenção ao momento.","Fidelidade ao que considera certo."],
+ des:["Afirmar posições em situações de conflito.","Planejar o que depende de continuidade."]},
+INFP:{apelido:"Idealista",resumo:"Imaginativo(a), empático(a) e guiado(a) por coerência interna e valores.",
+ pot:["Escuta empática e acolhimento genuíno.","Criatividade a serviço do que tem sentido.","Firmeza silenciosa nos próprios princípios."],
+ des:["Lidar com crítica sem levá-la ao plano pessoal.","Transformar ideias em etapas e prazos concretos."]},
+INTP:{apelido:"Investigador(a)",resumo:"Curioso(a), analítico(a) e interessado(a) em compreender sistemas e ideias.",
+ pot:["Pensamento independente e rigor lógico.","Facilidade para enxergar inconsistências.","Prazer genuíno em aprender e aprofundar."],
+ des:["Concluir e entregar antes de ter tudo resolvido.","Incluir o efeito humano nas análises."]},
+ESTP:{apelido:"Ação",resumo:"Espontâneo(a), direto(a) e orientado(a) para experiências e resultados imediatos.",
+ pot:["Resposta rápida e prática sob pressão.","Leitura afiada do que está acontecendo agora.","Coragem para agir quando outros hesitam."],
+ des:["Avaliar consequências de médio e longo prazo.","Dosar a franqueza conforme quem escuta."]},
+ESFP:{apelido:"Expressivo(a)",resumo:"Sociável, caloroso(a) e atento(a) às experiências do presente.",
+ pot:["Calor humano que aproxima as pessoas.","Presença viva e atenção ao momento.","Facilidade para animar e envolver um grupo."],
+ des:["Sustentar foco em tarefas longas e pouco estimulantes.","Reservar tempo para o silêncio e a reflexão."]},
+ENFP:{apelido:"Inspirador(a)",resumo:"Criativo(a), entusiasmado(a) e aberto(a) a possibilidades.",
+ pot:["Entusiasmo que mobiliza pessoas e projetos.","Conexões originais entre ideias distantes.","Interesse sincero pelo outro."],
+ des:["Concluir o que começa antes de abraçar o próximo projeto.","Organizar rotina e prazos."]},
+ENTP:{apelido:"Explorador(a)",resumo:"Questionador(a), inventivo(a) e estimulado(a) por novas ideias.",
+ pot:["Agilidade mental e repertório amplo.","Facilidade para questionar o que virou automático.","Criatividade sob debate."],
+ des:["Persistir na execução depois que a novidade passa.","Perceber quando o debate cansa o outro."]},
+ESTJ:{apelido:"Gestor(a)",resumo:"Organizado(a), objetivo(a) e orientado(a) para execução e resultados.",
+ pot:["Capacidade de estruturar e fazer acontecer.","Clareza sobre papéis, prazos e responsabilidades.","Firmeza para decidir."],
+ des:["Ouvir antes de concluir.","Aceitar caminhos diferentes do seu para o mesmo fim."]},
+ESFJ:{apelido:"Colaborador(a)",resumo:"Sociável, cuidadoso(a) e atento(a) à harmonia do grupo.",
+ pot:["Cuidado ativo com o clima e o vínculo do grupo.","Organização prática do que a convivência exige.","Generosidade constante."],
+ des:["Tolerar desacordos sem sentir ruptura.","Colocar as próprias necessidades na conta."]},
+ENFJ:{apelido:"Mobilizador(a)",resumo:"Empático(a), comunicativo(a) e voltado(a) ao desenvolvimento das pessoas.",
+ pot:["Comunicação que inspira e organiza pessoas.","Percepção do potencial de cada um.","Compromisso com o crescimento do outro."],
+ des:["Separar a própria responsabilidade da do outro.","Reservar cuidado para si, não só para quem cuida."]},
+ENTJ:{apelido:"Líder estratégico(a)",resumo:"Assertivo(a), organizado(a) e orientado(a) para metas.",
+ pot:["Direção clara e capacidade de conduzir.","Visão de conjunto somada à execução.","Decisão sem paralisia."],
+ des:["Reduzir o ritmo para incluir quem acompanha.","Reconhecer o valor de dados subjetivos e emocionais."]}};
+
+var empateEscolhido = {};
+var resumoTexto = "";
+function el(id){return document.getElementById(id);}
+var form = el("form-teste");
+
+function respostaDe(i){
+  var campo = form.elements["q" + i];
+  if(!campo) return null;
+  for(var j=0;j<campo.length;j++){ if(campo[j].checked) return campo[j].value; }
+  return null;
+}
+
+function pintar(){
+  var rotulos = form.getElementsByClassName("opcao");
+  for(var i=0;i<rotulos.length;i++){
+    var entrada = rotulos[i].getElementsByTagName("input")[0];
+    rotulos[i].className = (entrada && entrada.checked) ? "opcao escolhida" : "opcao";
+  }
+}
+
+function progresso(){
+  var n = 0, primeira = -1, i;
+  for(i=0;i<40;i++){ if(respostaDe(i)!==null){n++;} else if(primeira===-1){primeira=i;} }
+  el("contador").textContent = n + " de 40 respondidas";
+  el("preenche").style.width = (n/40*100) + "%";
+  var idx = (primeira === -1) ? 39 : primeira;
+  for(i=0;i<DIMENSOES.length;i++){
+    if(idx >= DIMENSOES[i].ini && idx < DIMENSOES[i].fim){ el("bloco-atual").textContent = DIMENSOES[i].nome; }
+  }
+}
+
+form.addEventListener("change", function(e){
+  var alvo = e.target;
+  if(!alvo || alvo.type !== "radio") return;
+  pintar();
+  progresso();
+  var i = parseInt(String(alvo.name).replace("q",""), 10);
+  var atual = el("q" + i);
+  if(atual){ atual.className = "q"; }
+  var prox = el("q" + (i+1));
+  if(prox && respostaDe(i+1) === null && prox.scrollIntoView){
+    prox.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+});
+
+function apurar(){
+  var saida = [], d, i;
+  for(d=0; d<DIMENSOES.length; d++){
+    var dim = DIMENSOES[d], a=0, b=0;
+    for(i=dim.ini; i<dim.fim; i++){
+      var r = respostaDe(i);
+      if(r==="A"){a++;} else if(r==="B"){b++;}
+    }
+    var letra = (a>b) ? dim.a : (b>a) ? dim.b : (empateEscolhido[dim.nome] || null);
+    saida.push({dim:dim, a:a, b:b, letra:letra, empate:(a===b)});
+  }
+  return saida;
+}
+
+var faixa = el("aviso-js");
+if(faixa){ faixa.parentNode.removeChild(faixa); }
+
+el("btn-resultado").addEventListener("click", function(){
+  try{ calcular(); }
+  catch(erro){ alert("Falha ao apurar: " + (erro && erro.message ? erro.message : erro)); }
+});
+
+function calcular(){
+  var falta = -1, i;
+  for(i=0;i<40;i++){
+    if(respostaDe(i)===null){ el("q"+i).className = "q faltando"; if(falta===-1){falta=i;} }
+  }
+  if(falta !== -1){
+    el("alerta").className = "";
+    el("q"+falta).scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+  el("alerta").className = "oculto";
+  var r = apurar(), empatadas = [];
+  for(i=0;i<r.length;i++){ if(r[i].empate){ empatadas.push(r[i]); } }
+  if(empatadas.length){ montarDesempates(empatadas); } else { montarResultado(r); }
+}
+
+function montarDesempates(empatadas){
+  var box = el("lista-desempates");
+  box.innerHTML = "";
+  for(var i=0;i<empatadas.length;i++){
+    var dim = empatadas[i].dim;
+    var bloco = document.createElement("div");
+    bloco.className = "desempate";
+    bloco.innerHTML =
+      "<h3>" + dim.nome + "</h3>" +
+      '<p class="aviso-emp">Você marcou 5 respostas para cada lado nesta dimensão.</p>' +
+      '<label class="opcao"><input type="radio" name="emp-' + dim.nome + '" value="' + dim.a + '"><span class="letra-op">' + dim.a + '</span><span><b>' + dim.rotuloA + '</b><br>' + dim.descA + '</span></label>' +
+      '<label class="opcao"><input type="radio" name="emp-' + dim.nome + '" value="' + dim.b + '"><span class="letra-op">' + dim.b + '</span><span><b>' + dim.rotuloB + '</b><br>' + dim.descB + '</span></label>';
+    box.appendChild(bloco);
+  }
+  el("desempates").className = "";
+  el("desempates").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+el("lista-desempates").addEventListener("change", function(e){
+  var alvo = e.target;
+  if(!alvo || alvo.type !== "radio") return;
+  empateEscolhido[String(alvo.name).replace("emp-","")] = alvo.value;
+  var rotulos = el("lista-desempates").getElementsByClassName("opcao");
+  for(var i=0;i<rotulos.length;i++){
+    var entrada = rotulos[i].getElementsByTagName("input")[0];
+    rotulos[i].className = (entrada && entrada.checked) ? "opcao escolhida" : "opcao";
+  }
+});
+
+el("btn-fechar-empate").addEventListener("click", function(){
+  var r = apurar();
+  for(var i=0;i<r.length;i++){
+    if(r[i].letra === null){ alert("Escolha uma opção em cada dimensão empatada."); return; }
+  }
+  el("desempates").className = "oculto";
+  montarResultado(r);
+});
+
+function montarResultado(r){
+  var tipo = "", i;
+  for(i=0;i<r.length;i++){ tipo += r[i].letra; }
+  var info = TIPOS[tipo];
+  var nome = el("f-nome").value.replace(/^\s+|\s+$/g,"");
+  var idade = el("f-idade").value.replace(/^\s+|\s+$/g,"");
+  var hoje = new Date().toLocaleDateString("pt-BR");
+  var ident = [];
+  if(nome){ident.push(nome);} if(idade){ident.push(idade + " anos");} ident.push(hoje);
+  el("identificacao").textContent = ident.join(" · ");
+
+  var htmlLetras = "";
+  for(i=0;i<r.length;i++){ htmlLetras += '<div class="letra">' + r[i].letra + "<small>" + r[i].dim.nome + "</small></div>"; }
+  el("letras").innerHTML = htmlLetras;
+  el("apelido").textContent = tipo + " — " + info.apelido;
+  el("resumo").textContent = info.resumo;
+
+  var htmlEixos = "";
+  for(i=0;i<r.length;i++){
+    var x = r[i], dim = x.dim, fortA = (x.letra === dim.a), pct = (x.b/10)*100;
+    htmlEixos += '<div class="eixo"><div class="polos">' +
+      '<span class="' + (fortA?"":"fraco") + '"><b>' + dim.a + "</b> " + dim.rotuloA + "</span>" +
+      '<span class="' + (fortA?"fraco":"") + '">' + dim.rotuloB + " <b>" + dim.b + "</b></span></div>" +
+      '<div class="barra"><span class="marcador" style="left:' + pct + '%"></span></div>' +
+      '<div class="placar">' + x.a + " × " + x.b + (x.empate ? " (empate desfeito por você)" : "") + "</div></div>";
+  }
+  el("eixos").innerHTML = htmlEixos;
+
+  var lp = "", ld = "";
+  for(i=0;i<info.pot.length;i++){ lp += "<li>" + info.pot[i] + "</li>"; }
+  for(i=0;i<info.des.length;i++){ ld += "<li>" + info.des[i] + "</li>"; }
+  el("potencialidades").innerHTML = lp;
+  el("desenvolver").innerHTML = ld;
+
+  resumoTexto = "TESTE DE PERSONALIDADE — Barbara Benedykt, Psicanalista Clínica\n";
+  if(nome){ resumoTexto += "Nome: " + nome + "\n"; }
+  if(idade){ resumoTexto += "Idade: " + idade + "\n"; }
+  resumoTexto += "Data: " + hoje + "\n\nTipo indicativo: " + tipo + " — " + info.apelido + "\n" + info.resumo + "\n\nApuração\n";
+  for(i=0;i<r.length;i++){ resumoTexto += "- " + r[i].dim.nome + ": A " + r[i].a + " / B " + r[i].b + " -> " + r[i].letra + "\n"; }
+  resumoTexto += "\nPotencialidades\n";
+  for(i=0;i<info.pot.length;i++){ resumoTexto += "- " + info.pot[i] + "\n"; }
+  resumoTexto += "\nAspectos a desenvolver\n";
+  for(i=0;i<info.des.length;i++){ resumoTexto += "- " + info.des[i] + "\n"; }
+  resumoTexto += "\nResultado indicativo de preferências. Não substitui avaliação psicológica ou clínica.";
+
+  el("resultado").className = "";
+  el("resultado").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+el("btn-imprimir").addEventListener("click", function(){ window.print(); });
+
+el("btn-copiar").addEventListener("click", function(){
+  var btn = el("btn-copiar");
+  function aviso(t){ btn.textContent = t; setTimeout(function(){ btn.textContent = "Copiar resultado"; }, 3000); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(resumoTexto).then(function(){ aviso("Resultado copiado"); },
+      function(){ aviso("Não deu para copiar. Use imprimir ou salvar em PDF."); });
+  } else { aviso("Não deu para copiar. Use imprimir ou salvar em PDF."); }
+});
+
+el("btn-refazer").addEventListener("click", function(){
+  form.reset();
+  for(var i=0;i<40;i++){ el("q"+i).className = "q"; }
+  empateEscolhido = {};
+  el("lista-desempates").innerHTML = "";
+  el("resultado").className = "oculto";
+  el("desempates").className = "oculto";
+  pintar();
+  progresso();
+  window.scrollTo(0,0);
+});
+
+pintar();
+progresso();
+})();
+</script>
+</body>
+</html>
